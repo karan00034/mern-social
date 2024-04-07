@@ -57,6 +57,11 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/",searchRoutes);
+app.get("/",(req,res)=>{
+    return res.json({
+        msg:"hello there"
+    })
+})
 
 
 const port=3001;
