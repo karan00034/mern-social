@@ -12,7 +12,7 @@ const PostsWidget=({ userId,isProfile=false })=>{
     const getPosts=async()=>{
       try {
         const response = await fetch(
-          "http://localhost:3001/posts",
+          "https://mern-social-5hh6.vercel.app/posts",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -38,7 +38,7 @@ const PostsWidget=({ userId,isProfile=false })=>{
     
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `https://mern-social-5hh6.vercel.app/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
