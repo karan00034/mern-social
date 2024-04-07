@@ -27,7 +27,7 @@ dotenv.config();
 const app=express();
 app.use(express.json())
 app.use(cors({
-    origin:"http://localhost:3000"
+    origin:"https://mern-social-psi-nine.vercel.app"
 }))
 app.use(helmet())
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
