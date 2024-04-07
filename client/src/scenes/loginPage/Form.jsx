@@ -66,7 +66,7 @@ const Form=()=>{
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      "https://mern-social-5hh6.vercel.app/auth/register",
       {
         method: "POST",
         body: formData,
