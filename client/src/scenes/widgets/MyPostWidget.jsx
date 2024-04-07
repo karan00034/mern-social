@@ -49,7 +49,7 @@ import {
         }
 
         const response=await fetch(
-            `http://localhost:3001/posts`,
+            `https://mern-social-5hh6.vercel.app/posts`,
             {
                 method:"POST",
                 headers:{ Authorization:`Bearer ${token}`},
