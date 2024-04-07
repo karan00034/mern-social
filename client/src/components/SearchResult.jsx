@@ -57,7 +57,7 @@ const SearchResult = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/search?query=${searchQuery}`);
+      const response = await fetch(`https://mern-social-5hh6.vercel.app/search?query=${searchQuery}`);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
