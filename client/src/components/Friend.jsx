@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   
 
   const patchFriend = async () => {
-    const response = await fetch(`http://localhost:3001/users/${_id}/${friendId}`, {
+    const response = await fetch(`https://mern-social-5hh6.vercel.app/users/${_id}/${friendId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
