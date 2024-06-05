@@ -31,7 +31,8 @@ const LoginPage=()=>{
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Welcome to our Social Media Site!
         </Typography>
-        <Form />
+        <Form /> default user: kb888547@gmail.com
+                 pass : 12345678
       </Box>
     </Box>
   );
