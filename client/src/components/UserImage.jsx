@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 
 const getImageSrc = (url) => {
-  // Assuming local paths start without "http" or "https"
-  if (!url.startsWith("http") && !url.startsWith("https")) {
-    return `https://mern-social-5hh6.vercel.app/assets/${url}`;
+  if (url.startsWith("http") || url.startsWith("https")) {
+    return url;
   }
-  return url; // This should be a Firebase URL
+  
+    return `https://mern-social-5hh6.vercel.app/assets/${url}`;
 };
 
 const UserImage = ({ image, size = "60px" }) => {
