@@ -104,6 +104,7 @@ const Form=()=>{
       },
       async () => {
         // Complete function
+        console.log("async function of register function here ..")
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         const formData = new FormData();
         for (let key in values) {
@@ -111,6 +112,7 @@ const Form=()=>{
         }
         formData.append("picturePath", downloadURL);
         formData.append("picture", downloadURL);
+        console.log("Download url :",downloadURL);
   
         try {
           const savedUserResponse = await fetch(
@@ -120,6 +122,7 @@ const Form=()=>{
               body: formData,  // Do not set Content-Type header here
             }
           );
+          console.log("saved user response : ",savedUserResponse)
   
           if (!savedUserResponse.ok) {
             throw new Error("Failed to register user");
