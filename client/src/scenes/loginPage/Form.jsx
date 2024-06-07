@@ -135,7 +135,6 @@ const Form=()=>{
             //setPageType("login");
             navigate("/home");
           }
-          navigate("/home");
         } catch (error) {
           console.error("Error during registration:", error);
         }
