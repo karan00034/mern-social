@@ -16,7 +16,7 @@ try{
       } = req.body;
       const salt=await bcryptjs.genSalt(10);
       const passwordHash=await bcryptjs.hash(password,salt)
-      
+      console.log("password hash generated successfully")
     const newUser = new User({
         firstName,
         lastName,
@@ -29,6 +29,7 @@ try{
         viewedProfile: Math.floor(Math.random() * 10000),
         impressions: Math.floor(Math.random() * 10000),
       });
+    console.log("creating new user")
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
 
