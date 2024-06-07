@@ -16,6 +16,10 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
+import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
+import { app } from "../../firebase";
+
+
 const registerSchema=yup.object().shape({
   firstName:yup.string().required("required"),
   lastName:yup.string().required("required"),
@@ -56,7 +60,7 @@ const Form=()=>{
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
-
+/*
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
@@ -78,7 +82,65 @@ const Form=()=>{
     if (savedUser) {
       setPageType("login");
     }
+  };*/
+  
+  const register = async (values, onSubmitProps) => {
+    // Upload image to Firebase Storage
+    const storage = getStorage(app);
+    const storageRef = ref(storage, `images/${values.picture.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, values.picture);
+  
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Progress function (optional)
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (error) => {
+        // Error function
+        console.error("Upload error:", error);
+      },
+      async () => {
+        // Complete function
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        const formData = new FormData();
+        for (let key in values) {
+          formData.append(key, values[key]);
+        }
+        formData.append("picturePath", downloadURL);
+        formData.append("picture", downloadURL);
+  
+        try {
+          const savedUserResponse = await fetch(
+            "https://mern-social-5hh6.vercel.app/auth/register",
+            {
+              method: "POST",
+              body: formData,  // Do not set Content-Type header here
+            }
+          );
+  
+          if (!savedUserResponse.ok) {
+            throw new Error("Failed to register user");
+          }
+  
+          const savedUser = await savedUserResponse.json();
+          onSubmitProps.resetForm();
+          console.log("saved user ::",savedUser);
+          if (savedUser) {
+            //setPageType("login");
+            navigate("/home");
+          }
+          navigate("/home");
+        } catch (error) {
+          console.error("Error during registration:", error);
+        }
+      }
+    );
   };
+  
+
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch("https://mern-social-5hh6.vercel.app/auth/login", {
