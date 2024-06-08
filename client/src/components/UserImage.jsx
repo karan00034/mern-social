@@ -7,7 +7,7 @@ const getImageSrc = (url) => {
   if (url.startsWith("http") || url.startsWith("https")) {
     return url;
   }
-  
+  }
     return `https://mern-social-5hh6.vercel.app/assets/${url}`;
 };
 
