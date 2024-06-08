@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 
 const getImageSrc = (url) => {
+  if(url){
+  
   console.log("UserImage component ",url)
   if (url.startsWith("http") || url.startsWith("https")) {
     return url;
