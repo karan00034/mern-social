@@ -79,6 +79,17 @@ import {
     setNewComment(""); // Clear the comment input after posting
   };
 
+      const getImageSrc = (url) => {
+  if(url){
+  
+  console.log("UserImage component ",url)
+  if (url.startsWith("http") || url.startsWith("https")) {
+    return url;
+  }
+  }
+    return `https://mern-social-5hh6.vercel.app/assets/${url}`;
+};
+
     
   return (
     <WidgetWrapper m="2rem 0">
@@ -97,7 +108,7 @@ import {
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={getImageSrc(picturePath)}
         />
       )}
       <FlexBetween mt="0.25rem">
