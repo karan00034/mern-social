@@ -24,6 +24,10 @@ import {
   import { useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "state";
+
+import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
+import { app } from "../../firebase";
+
   
 
   const MyPostWidget=({ picturePath })=>{
