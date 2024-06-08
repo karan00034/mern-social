@@ -39,7 +39,7 @@ import {
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;
 
-    const handlePost=async()=>{
+   /* const handlePost=async()=>{
         const formData=new FormData();
         formData.append("userId",_id);
         formData.append("description",post)
@@ -61,7 +61,58 @@ import {
         dispatch(setPosts({ posts}))
         setImage(null)
         setPost("")
+    }*/
+       const handlePost = async () => {
+    const formData = new FormData();
+    formData.append("userId", _id);
+    formData.append("description", post);
+
+    if (image) {
+      const storage = getStorage(app);
+      const storageRef = ref(storage, `images/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Optional: Monitor upload progress
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.error("Upload error:", error);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          formData.append("picture", downloadURL);
+          formData.append("picturePath", downloadURL);
+
+          const response = await fetch(`https://mern-social-5hh6.vercel.app/posts`, {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+          });
+
+          const posts = await response.json();
+          dispatch(setPosts({ posts }));
+          setImage(null);
+          setPost("");
+        }
+      );
+    } else {
+      const response = await fetch(`https://mern-social-5hh6.vercel.app/posts`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      const posts = await response.json();
+      dispatch(setPosts({ posts }));
+      setImage(null);
+      setPost("");
     }
+  };
+
 
     
   return (
